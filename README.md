@@ -19,10 +19,12 @@ The Garden Project is a community-driven app designed to mitigate food insecurit
 This project was created to inspire community engagement and provide residents with resources to access fresh, local produce. By encouraging people to buy locally, the app aims to address food insecurity and promote wellness through healthier food choices. 
 
 ## Technologies Used -
-Google Maps API - Vue.js - JavaScript - HTML/CSS 
+Google Maps API - Vue.js - JavaScript - HTML/CSS - Express.js - PostgreSQL
 
 ## How to Use 
-1. Explore the map to find nearby community gardens. 2. Click on a garden to learn more about its location and the organization behind it. 3. Browse the healthy recipes section for meal ideas that match available local produce. 
+1. Explore the map to find nearby community gardens.
+2. Click on a garden to learn more about its location and the organization behind it.
+3. Browse the healthy recipes section for meal ideas that match available local produce. 
 
 ## Future Enhancements - 
 Adding user accounts to track favorite gardens and save recipes.  Integrating a community forum for garden-related discussions. This project is a labor of love for my community, and I hope it helps to make a positive impact by improving access to fresh, nutritious food.
