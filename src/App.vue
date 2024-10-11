@@ -1,42 +1,58 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-
+import { RouterLink, RouterView } from "vue-router";
 
 </script>
 
 <template>
-
-  
-
   <header>
-   
     <div class="wrapper">
-     
-
-      <nav class="header">
-        <RouterLink class="header" to="/">Home</RouterLink>
-        <RouterLink class="recipes" to="/recipes">Recipes</RouterLink>
-        <!-- <RouterLink class="signup" to="/signup">Sign Up</RouterLink>
-        <RouterLink class="farmers"to="/farmers">Providers Signup</RouterLink> -->
-      </nav>
+      <header>
+        <nav>
+        <RouterLink class="menu" to="/">Home</RouterLink>
+        <RouterLink class="menu" to="/map">Map</RouterLink>
+        <RouterLink id="recipes" class="menu" to="/recipes">Recipes</RouterLink>
+        <RouterLink class="menu" to="/farmers">Farmer Signup</RouterLink>
+        </nav>
+      </header>
     </div>
   </header>
 
-  
-
   <RouterView />
-
 </template>
 
 <style scoped>
-.header {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
   display: flex;
-  justify-content: space-evenly;
+ justify-content: space-evenly;
+ align-items: center;
 }
 
-.header, .recipes, .signup {
-  color: #053B06;
+.menu {
+font-size: larger;
+border: 3px #6D5959 solid;
 }
 
+nav .menu {
+  color: black;
+  padding: 10px 20px;
+  position: relative;
+  text-align: center;
+  display: flex;
+  transition: .4s;
+}
+nav .menu.active, nav .menu:hover {
+background-color: #F2E863;
+border-bottom-color: #6D5959;
+}
+
+.recipes {
+position: relative;
+display: inline-block;
+}
 
 </style>

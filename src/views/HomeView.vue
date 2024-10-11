@@ -3,62 +3,69 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 function startHere() {
-  router.push('/map');
+  router.push("/map");
 }
 </script>
 
 <template>
-  <div class="layout">
-    <h1>Welcome</h1>
-    <h2>Our goal is to help you find fresh produce in your local area</h2>
-    
-      <div class="button-container">
-      <button @click="startHere()" id="button">Start Here</button>
+  <body>
+    <div class="welcome">
+      <h1>Welcome</h1>
+      <h2>Our goal is to help you find fresh produce in your local area</h2>
+      <br>
+        <button @click="startHere()">Start Here</button>
+   
     </div>
-    <div class="container">
-      <img
-        src="https://images.pexels.com/photos/5439/earth-space.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt="earth"
-      />
-    </div>
-  </div>
+  </body>
 </template>
 
 <style scoped>
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-image: url('../assets/earth.jpg');
+  height: 100vh;
+  width: 100vw;
+}
+.welcome {
+  height: 300px;
+  width: 800px;
+  background-color: #6D5959;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  
+  
+}
+
 h1,
 h2 {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #2e4057;
-  text-align: center;
-}
-
-img {
-  height: 100%;
-  width: 100%;
-}
-
-#button {
-  background-color: #ddd;
-  border: none;
-  color: black;
-  padding: 16px 32px;
-  text-align: center;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition: 0.3s;
-  position: absolute;
-
-}
-
-#button:hover {
-  background-color: #3e8e41;
+  font-family: 'garamond';
   color: white;
 }
 
-.button-container {
-  display: flex;
-  
-  justify-content: space-evenly;
-  
+
+
+button {
+  background-color: #C0C0C0;
+  border: none;
+  color: black;
+  padding: 16px 32px;
+  font-size: 16px;
+  transition: 0.3s;
 }
+
+button:hover {
+  border: black solid 4px;
+  background-color: #F2E863;
+  color: black;
+}
+
+
+
+
 </style>
