@@ -1,39 +1,55 @@
 <script setup>
+import { reactive } from "vue";
 const props = defineProps(["recipes"]);
 </script>
 
 <template>
-  <body>
-    
-  
-  <a :href="recipes.link" target="_blank">
     <div class="layout-container">
-      <p>{{ recipes.name }}</p>
-      <img :src="recipes.image" />
-      <p>{{ recipes.description }}</p>
+      <a :href="recipes.link" target="_blank"><img :src="recipes.image" /> </a>
+      <div class="card">
+        <h1>{{ recipes.name }}</h1>
+        <p>{{ recipes.description }}</p>
+        <a :href="recipes.link" target="_blank">
+          <button>Go To Recipe</button>
+        </a>
+      </div>
     </div>
-  </a>
-</body>
 </template>
 
 <style scoped>
-body {
-border: 2px solid #F4F9E9;
-
-}
-a {
-    color: #F4F9E9;
-    font-size: larger;
-}
 .layout-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+}
+
+.card {
+  text-align: center;
+  width: 200px;
+  
 }
 
 img {
-  height: 300px;
-  width: 300px;
- border: 2px #F4F9E9 solid;
+  height: 400px;
+  width: 400px;
+  border: 2px #f4f9e9 solid;
+  margin-right: 40px;
+}
+button {
+  background-color: gray;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  font-size: 16px;
+  transition: 0.3s;
+  align-items: center;
+}
+
+button:hover {
+  border: white solid 4px;
+  background-color: #babd8d;
+  color: white;
+  border: black solid 4px;
 }
 </style>

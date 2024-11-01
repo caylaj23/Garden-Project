@@ -1,32 +1,85 @@
 <script setup>
+import { ref } from "vue";
 
+//locations
+let name = ref("");
+let type = ref("");
+let address = ref("");
+let image = ref("");
+let url = ref("");
 
-// fetch("http://localhost:3000/farmers")
+//produce
+
+// fetch('http://localhost:3000/farmers')
 // .then(response => response.json())
-// .then(data => {
-// return data
+// .then(ingredients => {
+//   ingredients = {
+//     ingid: ingredientid.value,
+//     ingname: ingredientname.value,
+
+//   }
 // })
+let ingredientid = ref("");
+let ingredientname = ref("");
+let carrots = false;
+let onions = false;
+let celery = false;
+let potatoes = false;
+let bellPepper = false;
+let garlic = false;
+let other = ref("");
 
-// function submit(){
+let ingredientsarray = [];
 
-// let farmerInfo = {
-// let name: name.value,
-// let address: address.value
-  //  let lat: latitude.value
-  //  let lng: longitude.value
 
-// }
+//reverse geocoding
+function updateIngredients(ingredient) {
+  ingredientsarray.push(ingredient);
+}
+async function submit() {
+  alert("Your information has been recorded"); 
+  let urlString = address.value.split(" ").join("+");
+  let latitude;
+  let longitude;
+  await fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${urlString}&key=AIzaSyAVDwz028CVpz3cs1iTXnas3TfCDx6pKjg`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      const locationData = data.results[0].geometry.location;
+      latitude = locationData.lat;
+      longitude = locationData.lng;
+    });
 
-//   const params = {
-//   method: "POST",
-//   headers: {
-//     Accept: "application/json",
-//     "Content-Type": "application/json",
-//   },
+  let farmerInfo = {
+    type: type.value,
+    name: name.value,
+    address: address.value,
+    image: image.value,
+    url: url.value,
+    ingredientsarray: ingredientsarray,
+    ingredientid: ingredientid.value,
+    latitude: latitude,
+    longitude: longitude,
+  };
+  console.log(farmerInfo);
+  const params = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
 
-//   body: JSON.stringify(farmerInfo),
-// };
+    body: JSON.stringify(farmerInfo),
+  };
 
+  fetch("http://localhost:3000/farmers", params)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+}
 </script>
 
 <template>
@@ -34,67 +87,155 @@
     <h1>Sign Up Here</h1>
     <div class="signup-container">
       <h3>Name / Organization</h3>
-      <input type="text" placeholder="Enter Org Name" v-model="name"/>
+      <input
+        class="search-bar"
+        type="text"
+        placeholder="Enter Org Name"
+        v-model="name"
+      />
       <h3>Address</h3>
-      <input type="text" placeholder="123 Main Street" v-model="address" />
+      <input
+        class="search-bar"
+        type="text"
+        placeholder="123 Main Street"
+        v-model="address"
+      />
+      <h3>Image</h3>
+      <input
+        class="search-bar"
+        type="text"
+        placeholder="enter image address"
+        v-model="image"
+      />
+      <h3>URL</h3>
+      <input
+        class="search-bar"
+        type="text"
+        placeholder="enter url here"
+        v-model="url"
+      />
 
-      <h3>Produce Sold</h3>
+      
       <div class="inputs">
-        <input type="checkbox" id="carrots" />carrots
-        <input type="checkbox" id="onions" />onions
-        <input type="checkbox" id="celery" />celery
-        <input type="checkbox" id="potatoes" />potatoes
-        <input type="checkbox" id="bell pepper" />bell pepper
-        <input type="checkbox" id="garlic" />garlic <br /><br />
-        <input type="text" placeholder="enter produce" />other
-        <br />
+        <h3>Produce Sold</h3>
+        <input
+          @change="updateIngredients(1)"
+          v-model="carrots"
+          type="checkbox"
+          id="carrots"
+        />carrots
+        <input
+          @change="updateIngredients(2)"
+          v-model="onions"
+          type="checkbox"
+          id="onions"
+        />onions
+        <input
+          @change="updateIngredients(4)"
+          v-model="celery"
+          type="checkbox"
+          id="celery"
+        />celery
+        <input
+          @change="updateIngredients(8)"
+          v-model="potatoes"
+          type="checkbox"
+          id="potatoes"
+        />potatoes
+        <input
+          @change="updateIngredients(3)"
+          v-model="bellPepper"
+          type="checkbox"
+          id="bell pepper"
+        />bell pepper
+        <input
+          @change="updateIngredients(5)"
+          v-model="garlic"
+          type="checkbox"
+          id="garlic"
+        />garlic
+        <div class="other-container">
+          <h3 id="other">Other</h3>
+          <input
+            @change="updateIngredients(17)"
+            class="search-bar"
+            v-model="other"
+            type="text"
+            placeholder="enter produce"
+          />
+        </div>
+        <button @click="submit()">Submit!</button>
       </div>
-      <button @click="submit()">Submit!</button>
     </div>
   </body>
 </template>
 
 <style scoped>
 body {
-  background-image: url(../assets/garden.jpg);
+  background-image: url(../assets/greenhouse.jpg);
   background-position: bottom;
   background-size: cover;
-  
   color: black;
   height: 100vh;
 }
 .signup-container {
   box-shadow: 2px 3px 4px black;
-background-color: #EEF0EB;
+  background-color: #f5efed;
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-top: 60px;
+  margin-top: 5%;
   align-items: center;
-  width: 400px;
+  width: 60%;
   border: 3px solid black;
 }
 
 h1 {
-    padding-top: 40px;
+  padding-top: 40px;
   text-align: center;
-  color: black;
+  color: white;
 }
-
 
 button {
-  color: black;
-  margin: 20px;
-  padding: 8px 18px;
-}
-
-button.active, button:hover {
-background-color: #A9AFD1;
-}
-
-.inputs {
-  display: flex;
-  flex-direction: column;
+  background-color: gray;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  font-size: 16px;
+  transition: 0.3s;
   align-items: center;
+  margin: 5%;
+}
+
+button:hover {
+  border: white solid 4px;
+  background-color: #babd8d;
+  color: white;
+  border: black solid 4px;
+}
+.inputs {
+  text-align: center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin: 5%;
+
+}
+
+.search-bar {
+  height: 46px;
+  border-radius: 48px;
+  border: 0.5px solid lightgrey;
+  width: 75%;
+  padding-right: 40px;
+  padding-left: 10px;
+}
+
+#other {
+  margin: 5%;
+}
+
+.other-container {
+  margin: 5%;
 }
 </style>

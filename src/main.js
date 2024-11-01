@@ -15,3 +15,4 @@ app.use(VueGoogleMaps, {
 app.use(router)
 
 app.mount('#app')
+

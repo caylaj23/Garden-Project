@@ -1,103 +1,97 @@
 <script setup>
+import { ref } from "vue";
 import googlemap from "@/components/googlemap.vue";
 
-fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=136+Tait+Place,+Louisville+Kentucky,+40212&key=AIzaSyAVDwz028CVpz3cs1iTXnas3TfCDx6pKjg`)
+let location = ref();
+let geolocation = ref();
+
+function getLatLong() {
+  let urlString = location.value.split(" ").join("+");
+
+  //geocoding api
+  console.log(urlString);
+  fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${urlString}&key=AIzaSyAVDwz028CVpz3cs1iTXnas3TfCDx6pKjg`
+  )
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+      geolocation.value = data.results[0].geometry.location;
+      console.log(geolocation.value);
     });
-
-//where is the data going
-//how can i get it there
-// need to figure out how to convert address to latitude and longitude
-// when an address is searched, the map needs to display ALL gardens, grocery stores in that area
-// need to use a google geocoding map
-function getLatLong() {
-
 }
-
-
 </script>
 
 <template>
   <body>
- 
     <div class="destination-container">
-      <h1>Where To?</h1>
-      <label class="map" for="map">Input Your Address</label>
-      <br />
-      <input type="text" placeholder="Enter Location Here" id="louisville"
+      <h1>Enter Your Address</h1>
+      <p>Find Fresh Produce Near You</p>
+      <input
+        id="search-bar"
+        v-model="location"
+        type="text"
+        size="20"
+        placeholder="Enter Address Here"
       />
       <br />
       <button @click="getLatLong()">Search</button>
     </div>
     <div class="map-container">
-      <googlemap></googlemap>
+      <googlemap :key="geolocation" :user-location="geolocation"></googlemap>
     </div>
-
   </body>
 </template>
 
 <style scoped>
-
-h1 {
-  color: white;
-  padding-top: 50px;
-}
-
 body {
-  background-image: url("../assets/globe.jpg");
-  background-position: left;
+  color: black;
   height: 100vh;
   width: 100vw;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5efed;
+}
+
+.destination-container {
+  margin-top: 30%;
+  background: white;
+  width: 100%;
+  height: 50%;
 }
 
 .map-container {
-  border: 2px solid black;
-}
-.destination-container {
-
-  border-bottom: 2px black solid;
-  width: 1000px;
+  margin-top: 5%;
+  border-style: inset;
 }
 
 button {
+  background-color: gray;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  font-size: 16px;
+  transition: 0.3s;
+  align-items: center;
   margin: 20px;
-  padding: 10px 25px;
-  background-color: #fff;
-  border: 1px solid #d5d9d9;
-  border-radius: 8px;
-  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-  box-sizing: border-box;
-  color: #0f1111;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Amazon Ember",sans-serif;
-  font-size: 13px;
-  line-height: 29px;
-  padding: 0 10px 0 11px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  width: 100px;
 }
 
-
-.button:hover {
-  background-color: #f7fafa;
+button:hover {
+  border: white solid 4px;
+  background-color: #babd8d;
+  color: white;
+  border: black solid 4px;
 }
 
-.button:focus {
-  border-color: #008296;
-  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-  outline: 0;
-}
-
-button.active, button:hover {
-background-color: #F4F9E9;
+#search-bar {
+  height: 46px;
+  border-radius: 48px;
+  border: 0.5px solid lightgrey;
+  width: 25%;
+  padding-right: 40px;
+  padding-left: 10px;
 }
 </style>
