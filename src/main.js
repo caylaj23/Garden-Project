@@ -1,4 +1,4 @@
-import './assets/main.css'
+
 import  VueGoogleMaps from '@fawmi/vue-google-maps'
 
 import { createApp } from 'vue'
