@@ -35,7 +35,7 @@ function filterRecipes(event) {
 }
 
 
-fetch("http://localhost:3000/recipes")
+fetch("http:/backend-garden-project.vercel.app/localhost:3000/recipes")
   .then((response) => {
     return response.json();
   })

@@ -11,7 +11,7 @@ Accept: "application/json",
 "Content-Type": "application/json"
 }
 }
-fetch('http://localhost:3000/signup', params)
+fetch('backend-garden-project.vercel.app://localhost:3000/signup', params)
 .then(userinfo =>{  
     alert("Thank you for signing up! You're information has been recorded")
     return userinfo

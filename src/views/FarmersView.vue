@@ -74,7 +74,7 @@ async function submit() {
     body: JSON.stringify(farmerInfo),
   };
 
-  fetch("http://localhost:3000/farmers", params)
+  fetch("http://localhoshttp://backend-garden-project.vercel.app:3000/farmers", params)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);

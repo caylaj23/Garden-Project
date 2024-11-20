@@ -16,7 +16,7 @@ let phoneNumber = ref()
     body: JSON.stringify({firstname: firstName.value, lastname:lastName.value, email: email.value, phonenumber: phoneNumber.value}),
   };
 
-  fetch("http://localhost:3000/volunteer", params)
+  fetch("http://backend-garden-project.vercel.app:3000/volunteer", params)
     .then(volunteerInfo => {
       return volunteerInfo;
     });
