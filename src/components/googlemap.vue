@@ -5,6 +5,8 @@ let markersArray = reactive([]);
 let map;
 const props = defineProps(['userLocation'])
 
+
+initMap()
  //geocoding api
 async function initMap() {
   const position = { lat: 38.2469, lng: -85.7664 };
