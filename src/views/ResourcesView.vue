@@ -4,7 +4,7 @@ import { reactive } from 'vue';
 
 let cardsDisplay = reactive([])
 
-fetch('http://backend-garden-project.vercel.app:3000/resources')
+fetch('https://backend-garden-project.vercel.app:3000/resources')
 .then((response) => {
     return response.json();
   })
