@@ -75,7 +75,7 @@ markersArray.forEach(location => {
 function goToLocation(){
     console.log("hello")
 }
-fetch("http://backend-garden-project.vercel.app:3000/map")
+fetch("https://backend-garden-project.vercel.app/map")
   .then((response) => response.json())
   .then((data) => {
     console.log(data)
